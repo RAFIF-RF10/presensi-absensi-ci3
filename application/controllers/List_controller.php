@@ -8,12 +8,13 @@ class List_controller extends CI_Controller {
     }
 
     public function index() {
-		$data['siswa'] = $this->List_model->get_all_siswa();
-		$data['absensi_today'] = $this->List_model->get_absensi_hari_ini();
-	
-		
-		
-		$this->load->view('dashboard-guru/list/index', $data);
+        $data['siswa'] = $this->List_model->get_all_siswa();
+        $data['absensi_today'] = $this->List_model->get_absensi_hari_ini();
+        
+        // Tambahkan variabel untuk halaman rekap
+        $data['rekap_absensi'] = [];
+        
+        $this->load->view('dashboard-guru/list/index', $data);
     }
 
     public function tambah() {
@@ -46,5 +47,17 @@ class List_controller extends CI_Controller {
     public function hapus($id) {
         $this->List_model->delete_siswa($id);
         redirect('list_controller');
+    }
+
+    // Fungsi baru: Rekap absensi
+    public function rekap_absensi() {
+        $bulan = $this->input->get('bulan'); // Ambil filter bulan
+        $kelas = $this->input->get('kelas'); // Ambil filter kelas
+
+        $data['rekap_absensi'] = $this->List_model->get_absensi($bulan, $kelas); // Ambil data absensi
+        $data['siswa'] = $this->List_model->get_all_siswa(); // Data siswa untuk digunakan jika dibutuhkan
+        $data['absensi_today'] = $this->List_model->get_absensi_hari_ini(); // Data absensi hari ini
+        
+        $this->load->view('dashboard-guru/data-siswa/index', $data);
     }
 }

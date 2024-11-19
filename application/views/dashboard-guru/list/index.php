@@ -1,4 +1,5 @@
 <h1>Data Siswa</h1>
+<h2>Selamat datang, <?= $this->session->userdata('guru_nama'); ?></h2>
 <a href="<?php echo site_url('list_controller/tambah'); ?>">Tambah Siswa</a>
 <br>
 <a href="<?= site_url('Login_controller_guru/logout'); ?>">Logout</a>
@@ -6,7 +7,8 @@
 <a href="<?= site_url('dashboard_guru/persetujuan'); ?>">Verifikasi Absen</a>
 <a href="<?= site_url('dashboard-guru/data-siswa'); ?>">Absensi Siswa</a>
 
-<table border="1">
+
+<table border=1>
     <tr>
         <th>ID</th>
         <th>Nama</th>
@@ -32,7 +34,9 @@
             <td colspan="5">Tidak ada data siswa.</td>
         </tr>
     <?php endif; ?>
+    
 </table>
+
 
 <!-- Tabel Absensi yang Sudah Disetujui Hari Ini -->
 <h2>Absensi Hari Ini yang Sudah Disetujui</h2>

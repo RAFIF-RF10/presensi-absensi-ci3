@@ -30,8 +30,35 @@ class Persetujuan_model extends CI_Model {
 	}
 	public function get_all_siswa() {
 		// Ambil seluruh data siswa dari tabel siswa
-		$query = $this->db->get('absensi');
+		$query = $this->db->get('siswa');
 		return $query->result(); // Kembalikan hasil sebagai objek
 	}
+	public function get_all_absensi() {
+		$this->db->select('*');
+		$this->db->from('absensi'); // Nama tabel absensi dalam database
+		$query = $this->db->get();
+		return $query->result(); // Mengembalikan semua data dalam bentuk array objek
+	}
+	
+		public function get_rekap_absensi($bulan = null, $kelas = null) {
+			$this->db->select('nama, kelas, status, tanggal');
+			$this->db->from('absensi');
+			
+			// Filter berdasarkan bulan jika parameter bulan diberikan
+			if ($bulan) {
+				$this->db->where('MONTH(tanggal)', $bulan);
+			}
+			
+			// Filter berdasarkan kelas jika parameter kelas diberikan
+			if ($kelas) {
+				$this->db->where('kelas', $kelas);
+			}
+			
+			// Urutkan berdasarkan tanggal
+			$this->db->order_by('tanggal', 'ASC');
+			$query = $this->db->get();
+			return $query->result();
+		}
 		
+	
 }

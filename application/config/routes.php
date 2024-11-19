@@ -54,7 +54,8 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // Sesuaikan route untuk data siswa dan persetujuan
-$route['dashboard-guru/data-siswa'] = 'dashboard_guru/seluruh_data_siswa';
+$route['dashboard-guru/data-siswa'] = 'Dashboard_guru/seluruh_data_siswa';
+
 $route['dashboard-guru/persetujuan'] = 'Persetujuan_controller/index';
 
 // $route['dashboard_siswa'] = 'Dashboard_siswa/index';

@@ -8,16 +8,20 @@ class Dashboard_guru extends CI_Controller {
         $this->load->model('Persetujuan_model');
     }
 
-    public function list() {
-        if (!$this->session->userdata('guru_id')) {
-            redirect('Login_controller_guru');
-        }
-
-        $data['pending_list'] = $this->Persetujuan_model->get_all_pending();
-        $data['absensi_today'] = $this->Persetujuan_model->get_absensi_today();
-        
-        $this->load->view('dashboard-guru/list/index', $data);
-    }
+	public function list() {
+		if (!$this->session->userdata('guru_id')) {
+			redirect('Login_controller_guru');
+		}
+	
+		// Mengambil data siswa dan absensi hari ini
+		$data['siswa'] = $this->Persetujuan_model->get_all_siswa(); // Tambahkan baris ini
+		$data['pending_list'] = $this->Persetujuan_model->get_all_pending();
+		$data['absensi_today'] = $this->Persetujuan_model->get_absensi_today();
+	
+		// Pastikan semua data terkirim ke view
+		$this->load->view('dashboard-guru/list/index', $data);
+	}
+	
 
     public function persetujuan() {
         if (!$this->session->userdata('guru_id')) {
@@ -79,12 +83,14 @@ class Dashboard_guru extends CI_Controller {
         redirect('dashboard-guru/persetujuan');
     }
 
-    public function seluruh_data_siswa() {
-        if (!$this->session->userdata('guru_id')) {
-            redirect('Login_controller_guru');
-        }
-
-        $data['siswa'] = $this->Persetujuan_model->get_all_siswa();
-        $this->load->view('dashboard-guru/data-siswa/index', $data);
-    }
+	public function seluruh_data_siswa() {
+		if (!$this->session->userdata('guru_id')) {
+			redirect('Login_controller_guru');
+		}
+	
+		// Ambil semua data absensi
+		$data['absensi_siswa'] = $this->Persetujuan_model->get_all_absensi();
+		$this->load->view('dashboard-guru/data-siswa/index', $data);
+	}
+	
 }

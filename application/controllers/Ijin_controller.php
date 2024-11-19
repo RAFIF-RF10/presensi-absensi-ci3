@@ -14,15 +14,25 @@ class Ijin_controller extends CI_Controller {
         $siswa_kelas = $this->session->userdata('siswa_kelas');
 
         if (!$siswa_nama || !$siswa_kelas) {
-            echo "Data session tidak lengkap.";
-            exit;
+            $this->session->set_flashdata('message', 'Data session tidak lengkap.');
+            redirect('dashboard_siswa');
+            return;
         }
 
         $status = $this->input->post('status');
-        
+
         // Pastikan status tidak kosong
         if (empty($status)) {
             $this->session->set_flashdata('message', 'Status absensi tidak dipilih.');
+            redirect('dashboard_siswa');
+            return;
+        }
+
+        // Cek apakah siswa sudah absen hari ini
+        $already_absent = $this->Ijin_model->check_absen_today($siswa_nama, $siswa_kelas);
+
+        if ($already_absent) {
+            $this->session->set_flashdata('message', 'Anda sudah absen hari ini.');
             redirect('dashboard_siswa');
             return;
         }
@@ -39,9 +49,9 @@ class Ijin_controller extends CI_Controller {
         $inserted = $this->Ijin_model->insert_pending($data);
 
         if ($inserted) {
-            $this->session->set_flashdata('message', 'Status berhasil disimpan');
+            $this->session->set_flashdata('message', 'Berhasil melakukan absensi.');
         } else {
-            $this->session->set_flashdata('message', 'Anda sudah absen hari ini');
+            $this->session->set_flashdata('message', 'Terjadi kesalahan. Silakan coba lagi.');
         }
 
         // Arahkan kembali ke dashboard siswa

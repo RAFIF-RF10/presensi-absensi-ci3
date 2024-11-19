@@ -45,5 +45,12 @@ class Ijin_model extends CI_Model {
 		}
 	}
 	
+	public function check_absen_today($nama, $kelas) {
+		$this->db->where('nama', $nama);
+		$this->db->where('kelas', $kelas);
+		$this->db->where('DATE(tanggal)', date('Y-m-d')); // Periksa berdasarkan tanggal hari ini
+		$query = $this->db->get('pending'); // Ganti 'pending' sesuai nama tabel absensi Anda
 	
+		return $query->num_rows() > 0; // True jika ada data, False jika tidak
+	}
 }
