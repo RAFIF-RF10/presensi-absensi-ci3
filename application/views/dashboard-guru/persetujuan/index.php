@@ -21,8 +21,9 @@
                 <td><?= $pending->status; ?></td>
 
                 <td>
-                    <a href="<?= site_url('dashboard_guru/setuju/' . $pending->id); ?>">Setuju</a> |
-                    <a href="<?= site_url('dashboard_guru/tolak/' . $pending->id); ?>">Tolak</a>
+				<a href="<?= site_url('dashboard_guru/setuju/' . $pending->id); ?>">Setuju</a> |
+<a href="<?= site_url('dashboard_guru/tolak/' . $pending->id); ?>">Tolak</a>
+
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -33,8 +34,14 @@
     <?php endif; ?>
 </table>
 
+
 <!-- Tombol Kembali ke Dashboard Guru -->
 <br>
 <a href="<?= site_url('dashboard_guru/list'); ?>">
     <button>Kembali ke Dashboard</button>
 </a>
+<?php if ($this->session->flashdata('message')): ?>
+    <script>
+        alert("<?= $this->session->flashdata('message'); ?>");
+    </script>
+<?php endif; ?>
