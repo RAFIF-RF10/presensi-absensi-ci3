@@ -11,13 +11,11 @@ class Ijin_model extends CI_Model {
 	public function insert_pending($data) {
 		log_message('debug', 'Data yang akan dimasukkan ke pending: ' . print_r($data, true));
 	
-		// Periksa jika absensi untuk siswa pada hari yang sama sudah ada
 		$this->db->where('nama', $data['nama']);
 		$this->db->where('kelas', $data['kelas']);
 		$this->db->where('status', $data['status']);
 		
-		// Perbaiki format tanggal yang dikirim ke query
-		$formatted_date = date('Y-m-d', strtotime($data['tanggal'])); // Menghilangkan spasi ekstra
+		$formatted_date = date('Y-m-d', strtotime($data['tanggal'])); 
 		$this->db->where('DATE(tanggal)', $formatted_date);
 		
 		$query = $this->db->get('pending');
@@ -26,7 +24,7 @@ class Ijin_model extends CI_Model {
 			log_message('info', 'Absensi sudah ada pada hari ini untuk siswa: ' . $data['nama']);
 			return false;
 		} else {
-			// Hanya simpan data yang diperlukan tanpa bukti
+			
 			$data_to_insert = [
 				'tanggal' => $data['tanggal'],
 				'nama' => $data['nama'],

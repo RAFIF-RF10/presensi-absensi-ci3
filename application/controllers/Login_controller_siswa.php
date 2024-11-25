@@ -21,16 +21,17 @@ class Login_controller_siswa extends CI_Controller {
         $nama = $this->input->post('nama');
         $pin = $this->input->post('pin');
 
+
         // Memanggil cek_login dari Login_model
         $siswa = $this->Login_model->cek_login_siswa($nama, $pin);
 
-        if ($siswa) {
-            // Jika login berhasil, set session dan arahkan ke dashboard siswa
-            $this->session->set_userdata('siswa_id', $siswa->id);
-            $this->session->set_userdata('siswa_nama', $siswa->nama);
-            $this->session->set_userdata('siswa_kelas', $siswa->kelas); // Tambahkan kelas ke session
-            redirect('dashboard_siswa');
-        } else {
+		if ($siswa) {
+			$this->session->set_userdata('siswa_id', $siswa->id);
+			$this->session->set_userdata('siswa_nama', $siswa->nama);
+			$this->session->set_userdata('siswa_kelas', $siswa->kelas);
+			$this->session->set_userdata('siswa_foto', $siswa->foto ? $siswa->foto : 'assets/image/default.png'); // Foto default jika kosong
+			redirect('dashboard_siswa');
+		} else {
             // Jika login gagal, kembali ke halaman login dengan pesan error
             $this->session->set_flashdata('error', 'Nama atau PIN salah');
             redirect('Login_controller_siswa');

@@ -1,6 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property CI_Input $input
+ * @property CI_Session $session
+ * @property List_model $List_model
+ */
+
 class List_controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
@@ -49,15 +55,16 @@ class List_controller extends CI_Controller {
         redirect('list_controller');
     }
 
-    // Fungsi baru: Rekap absensi
-    public function rekap_absensi() {
-        $bulan = $this->input->get('bulan'); // Ambil filter bulan
-        $kelas = $this->input->get('kelas'); // Ambil filter kelas
-
-        $data['rekap_absensi'] = $this->List_model->get_absensi($bulan, $kelas); // Ambil data absensi
-        $data['siswa'] = $this->List_model->get_all_siswa(); // Data siswa untuk digunakan jika dibutuhkan
+	public function rekap_absensi() {
+		$bulan = $this->input->get('bulan'); // Ambil filter bulan dari GET
+		$kelas = $this->input->get('kelas'); // Ambil filter kelas dari GET
+	
+		// Ambil data absensi dari model (berdasarkan filter)
+		$data['rekap_absensi'] = $this->List_model->get_absensi($bulan, $kelas);
+		$data['siswa'] = $this->List_model->get_all_siswa(); // Data siswa untuk digunakan jika dibutuhkan
         $data['absensi_today'] = $this->List_model->get_absensi_hari_ini(); // Data absensi hari ini
-        
-        $this->load->view('dashboard-guru/data-siswa/index', $data);
-    }
+		// Tampilkan view dengan data yang sudah difilter
+		$this->load->view('dashboard-guru/list/index', $data); // Pastikan path view benar
+	}
+	
 }

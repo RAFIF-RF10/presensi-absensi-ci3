@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property CI_Input $input
+ * @property CI_Session $session
+ * @property Ijin_model $Ijin_model
+ */
 class Ijin_controller extends CI_Controller {
 
     public function __construct() {
@@ -9,7 +14,6 @@ class Ijin_controller extends CI_Controller {
     }
 
     public function set_status() {
-        // Ambil data dari session
         $siswa_nama = $this->session->userdata('siswa_nama');
         $siswa_kelas = $this->session->userdata('siswa_kelas');
 
@@ -21,14 +25,12 @@ class Ijin_controller extends CI_Controller {
 
         $status = $this->input->post('status');
 
-        // Pastikan status tidak kosong
         if (empty($status)) {
             $this->session->set_flashdata('message', 'Status absensi tidak dipilih.');
             redirect('dashboard_siswa');
             return;
         }
 
-        // Cek apakah siswa sudah absen hari ini
         $already_absent = $this->Ijin_model->check_absen_today($siswa_nama, $siswa_kelas);
 
         if ($already_absent) {
@@ -37,7 +39,6 @@ class Ijin_controller extends CI_Controller {
             return;
         }
 
-        // Siapkan data untuk dimasukkan ke tabel pending
         $data = [
             'tanggal' => date('Y-m-d H:i:s'),
             'nama' => $siswa_nama,
@@ -45,7 +46,6 @@ class Ijin_controller extends CI_Controller {
             'status' => $status
         ];
 
-        // Memasukkan data ke dalam tabel pending
         $inserted = $this->Ijin_model->insert_pending($data);
 
         if ($inserted) {
@@ -54,7 +54,6 @@ class Ijin_controller extends CI_Controller {
             $this->session->set_flashdata('message', 'Terjadi kesalahan. Silakan coba lagi.');
         }
 
-        // Arahkan kembali ke dashboard siswa
         redirect('dashboard_siswa');
     }
 }

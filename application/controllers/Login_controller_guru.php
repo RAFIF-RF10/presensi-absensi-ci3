@@ -1,11 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/**
+ * @property CI_Input $input
+ * @property CI_Session $session
+ * @property Login_model $Login_model
+ */
 class Login_controller_guru extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('Login_model'); // Menggunakan Login_model
+        $this->load->model('Login_model'); 
         $this->load->helper(array('url', 'form'));
         $this->load->library('session');
     }
