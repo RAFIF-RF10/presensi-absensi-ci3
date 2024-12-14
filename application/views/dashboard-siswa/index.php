@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="<?= base_url('/assets/image/logo.png'); ?>" type="image/x-icon">
     <link href="<?= base_url('/assets/css/output.css'); ?>" rel="stylesheet">
     <title>Dashboard Siswa</title>
 </head>
@@ -22,24 +23,24 @@
             <p class="text-gray-600 mt-2">Silakan pilih status absensi Anda:</p>
 
             <!-- Form Absensi -->
-            <form action="<?= site_url('Ijin_controller/set_status'); ?>" method="POST" class="mt-4 space-y-4">
-                <button type="submit" name="status" value="masuk" 
-                    class="w-full sm:w-auto px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
-                    Masuk
-                </button>
-                <button type="submit" name="status" value="izin" 
-                    class="w-full sm:w-auto px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
-                    Izin
-                </button>
-                <button type="submit" name="status" value="sakit" 
-                    class="w-full sm:w-auto px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
-                    Sakit
-                </button>
-                <button type="submit" name="status" value="dispen" 
-                    class="w-full sm:w-auto px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-                    Dispen
-                </button>
-            </form>
+			<form action="<?= site_url('Ijin_controller/set_status'); ?>" method="POST" class="mt-4 space-y-4">
+    <button type="submit" name="status" value="masuk" 
+        class="w-full sm:w-auto px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+        Masuk
+    </button>
+    <button type="submit" name="status" value="izin" 
+        class="w-full sm:w-auto px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
+        Izin
+    </button>
+    <button type="submit" name="status" value="sakit" 
+        class="w-full sm:w-auto px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+        Sakit
+    </button>
+    <button type="submit" name="status" value="dispen" 
+        class="w-full sm:w-auto px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+        Dispen
+    </button>
+</form>
 
             <!-- Tombol Logout -->
             <a href="<?= site_url('Login_controller_siswa/logout'); ?>" 

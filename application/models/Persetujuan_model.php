@@ -18,6 +18,15 @@ class Persetujuan_model extends CI_Model {
         // Insert data ke tabel absensi
         return $this->db->insert('absensi', $data);
     }
+	public function get_pending_by_kelas($kelas) {
+		if ($kelas) {
+			$this->db->where('kelas', $kelas);
+		}
+		$query = $this->db->get('pending');
+		return $query->result(); // Kembalikan hasil query
+	}
+	
+	
 
     public function delete_pending($id) {
         // Hapus data dari tabel pending setelah diproses
