@@ -19,11 +19,21 @@ class Persetujuan_model extends CI_Model {
         return $this->db->insert('absensi', $data);
     }
 	public function get_pending_by_kelas($kelas) {
-		if ($kelas) {
-			$this->db->where('kelas', $kelas);
+		try {
+			if ($kelas) {
+				$this->db->where('kelas', $kelas);
+			}
+			$query = $this->db->get('pending');
+			
+			if (!$query) {
+				throw new Exception("Query gagal: " . $this->db->last_query());
+			}
+	
+			return $query->result(); // Kembalikan hasil query
+		} catch (Exception $e) {
+			log_message('error', 'Error pada get_pending_by_kelas: ' . $e->getMessage());
+			return [];
 		}
-		$query = $this->db->get('pending');
-		return $query->result(); // Kembalikan hasil query
 	}
 	
 	

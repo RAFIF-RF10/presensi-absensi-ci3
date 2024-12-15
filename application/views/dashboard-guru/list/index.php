@@ -692,6 +692,7 @@
 				}
 			});
 		}
+
 		function verifikasiNama() {
     const selectedKelas = document.getElementById('verifikasiKelas').value;
 
@@ -700,7 +701,7 @@
         method: 'POST',
         data: { kelas: selectedKelas },
         beforeSend: function() {
-            // Menampilkan pesan loading
+            // Tampilkan pesan loading
             document.getElementById('dataController').innerHTML = `
                 <tr>
                     <td colspan="5" class="text-center">Memuat data...</td>
@@ -708,8 +709,9 @@
         },
         success: function(response) {
             const container = document.getElementById('dataController');
+
+            // Periksa apakah respons kosong
             if (response.trim() === '') {
-                // Tampilkan pesan jika data kosong
                 container.innerHTML = `
                     <tr>
                         <td colspan="5" class="text-center">Tidak ada data tersedia untuk kelas yang dipilih.</td>
@@ -720,12 +722,11 @@
             }
         },
         error: function(xhr, status, error) {
-            // Menangani error ketika permintaan gagal
             document.getElementById('dataController').innerHTML = `
                 <tr>
                     <td colspan="5" class="text-center">Terjadi kesalahan saat memuat data. Silakan coba lagi.</td>
                 </tr>`;
-            console.error('Error saat memuat data:', {
+            console.error('Error:', {
                 status: status,
                 error: error,
                 response: xhr.responseText
@@ -733,7 +734,6 @@
         }
     });
 }
-
 
 	</script>
 
