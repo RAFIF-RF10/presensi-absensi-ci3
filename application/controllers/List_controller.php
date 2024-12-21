@@ -108,17 +108,23 @@ class List_controller extends CI_Controller
 		$this->load->view('dashboard-guru/list/index', $data); // Pastikan path view benar
 	}
 	public function rekap_absensi()
-	{
-		$bulan = $this->input->get('bulan'); // Ambil filter bulan dari GET
-		$kelas = $this->input->get('kelas'); // Ambil filter kelas dari GET
+{
+    // Ambil data filter dari GET
+    $nama = $this->input->get('nama'); // Ambil filter nama
+    $tanggal = $this->input->get('tanggal'); // Ambil filter tanggal
+    $kelas = $this->input->get('kelas'); // Ambil filter kelas
 
-		// Ambil data absensi dari model (berdasarkan filter)
-		$data['rekap_absensi'] = $this->List_model->get_absensi($bulan, $kelas);
-		$data['siswa'] = $this->List_model->get_all_siswa(); // Data siswa untuk digunakan jika dibutuhkan
-		$data['absensi_today'] = $this->List_model->get_absensi_hari_ini(); // Data absensi hari ini
-		// Tampilkan view dengan data yang sudah difilter
-		$this->load->view('dashboard-guru/list/index', $data); // Pastikan path view benar
-	}
+    // Ambil data absensi dari model berdasarkan filter
+    $data['rekap_absensi'] = $this->List_model->get_absensi_by_filters($nama, $tanggal, $kelas);
+
+    // Data tambahan untuk view jika diperlukan
+    $data['siswa'] = $this->List_model->get_all_siswa(); 
+    $data['absensi_today'] = $this->List_model->get_absensi_hari_ini(); // Absensi hari ini
+
+    // Tampilkan view dengan data yang sudah difilter
+    $this->load->view('dashboard-guru/list/index', $data); 
+}
+
 	public function get_siswa_by_id($id)
 	{
 		$siswa = $this->List_model->get_siswa($id);  // Ambil data siswa berdasarkan ID

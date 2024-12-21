@@ -9,38 +9,34 @@ class Ijin_model extends CI_Model {
     }
 
     // Fungsi untuk memasukkan data absensi pending
-    public function insert_pending($data) {
+	public function insert_pending($data) {
 		log_message('debug', 'Data yang akan dimasukkan ke pending: ' . print_r($data, true));
 	
-		$this->db->where('nama', $data['nama']);
-		$this->db->where('kelas', $data['kelas']);
-		$this->db->where('status', $data['status']);
-		
-		// Format `tanggal` dengan tipe `DATETIME`
-		$formatted_datetime = date('Y-m-d H:i:s', strtotime($data['tanggal']));
-		$this->db->where('tanggal', $formatted_datetime);
-	
-		$query = $this->db->get('pending');
-	
-		if ($query->num_rows() > 0) {
-			log_message('info', 'Absensi sudah ada pada hari ini untuk siswa: ' . $data['nama']);
+		if ($this->check_absen_today($data['nama'], $data['kelas'])) {
+			log_message('info', 'Siswa sudah absen hari ini: ' . $data['nama']);
 			return false;
-		} else {
-			if ($this->db->insert('pending', $data)) {
-				return true;
-			} else {
-				log_message('error', 'Error inserting data into pending: ' . $this->db->last_query());
-				return false;
-			}
 		}
+	
+		return $this->db->insert('pending', $data);
 	}
 	
-    // Fungsi untuk mengecek absensi hari ini
-    public function check_absen_today($nama, $kelas) {
-        $this->db->where('nama', $nama);
-        $this->db->where('kelas', $kelas);
-        $this->db->where('DATE(tanggal)', date('Y-m-d')); // Periksa berdasarkan tanggal hari ini
-        $query = $this->db->get('pending');
-        return $query->num_rows() > 0; // True jika ada data absensi hari ini
-    }
+	
+	 // Fungsi untuk mengecek absensi hari ini
+	 public function check_absen_today($nama, $kelas) {
+		// Periksa di tabel `pending`
+		$this->db->where('nama', $nama);
+		$this->db->where('kelas', $kelas);
+		$this->db->where('DATE(tanggal)', date('Y-m-d')); // Ekstrak tanggal dari kolom `DATETIME`
+		$query_pending = $this->db->get('pending');
+	
+		// Periksa di tabel `absensi`
+		$this->db->where('nama', $nama);
+		$this->db->where('kelas', $kelas);
+		$this->db->where('DATE(tanggal)', date('Y-m-d'));
+		$query_absensi = $this->db->get('absensi');
+	
+		// Return true jika ditemukan data di salah satu tabel
+		return $query_pending->num_rows() > 0 || $query_absensi->num_rows() > 0;
+	}
+	
 }

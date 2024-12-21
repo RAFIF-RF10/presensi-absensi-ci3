@@ -165,6 +165,9 @@
 							<th class="px-6 py-3 text-left font-semibold">Tanggal</th>
 							<th class="px-6 py-3 text-left font-semibold">Nama</th>
 							<th class="px-6 py-3 text-left font-semibold">Kelas</th>
+							<th class="px-6 py-3 text-left font-semibold">Bukti
+								
+							</th>
 							<th class="px-6 py-3 text-left font-semibold">Status</th>
 						</tr>
 					</thead>
@@ -175,6 +178,16 @@
 									<td class="px-6 py-3 border border-gray-300"><?= $absensi->tanggal; ?></td>
 									<td class="px-6 py-3 border border-gray-300"><?= $absensi->nama; ?></td>
 									<td class="px-6 py-3 border border-gray-300"><?= $absensi->kelas; ?></td>
+									<td class="px-6 py-3 border border-gray-300">
+									
+									<?php if (!empty($absensi->bukti)): ?>
+										<a href="<?= base_url('uploads/bukti/' . $absensi->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
+											Lihat Bukti
+										</a>
+									<?php else: ?>
+										Tidak Ada Bukti
+									<?php endif; ?>
+								</td>
 									<td class="px-6 py-3 border border-gray-300">
 										<span class="px-3 py-1 rounded-full text-white font-semibold 
                                 <?php
@@ -217,71 +230,73 @@
 		</div>
 
 		<!-- Verifikasi Absen -->
-		<div id="verifikasiAbsenContent" class="hidden w-3/4 p-8">
-			<h1 class="text-3xl font-semibold mb-6">Verifikasi Absen</h1>
+		<div id="verifikasiAbsenContent" class="w-3/4 p-8">
+    <h1 class="text-3xl font-semibold mb-6">Verifikasi Absensi Hari Ini</h1>
 
-			<!-- Dropdown Kelas -->
-			<div class="bg-white shadow-md rounded-lg p-6 mb-6 max-w-full mx-auto">
-				<label for="kelas" class="block text-gray-700 font-semibold mb-2">Pilih Kelas:</label>
-				<select id="verifikasiKelas" class="w-full p-2 border border-gray-300 rounded">
-					<option value="">Semua Kelas</option>
-					<option value="XII RPL 1">XII RPL 1</option>
-					<option value="XII RPL 2">XII RPL 2</option>
-					<option value="XI RPL 1">XI RPL 1</option>
-					<option value="XI RPL 2">XI RPL 2</option>
-					<option value="X RPL 1">X RPL 1</option>
-					<option value="X RPL 2">X RPL 2</option>
-					<option value="XI DKV 1">XI DKV 1</option>
-					<option value="XI DKV 2">XI DKV 2</option>
-				</select>
-				<button onclick="verifikasiNama()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-					Tampilkan Data
-				</button>
-			</div>
+    <!-- Dropdown Kelas -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <label for="kelas" class="block text-gray-700 font-semibold mb-2">Pilih Kelas:</label>
+        <select id="verifikasiKelas" class="w-full p-2 border border-gray-300 rounded">
+            <option value="">Semua Kelas</option>
+            <option value="XII RPL 1">XII RPL 1</option>
+            <option value="XII RPL 2">XII RPL 2</option>
+            <option value="XI RPL 1">XI RPL 1</option>
+            <option value="XI RPL 2">XI RPL 2</option>
+            <option value="X RPL 1">X RPL 1</option>
+            <option value="X RPL 2">X RPL 2</option>
+            <option value="XI DKV 1">XI DKV 1</option>
+            <option value="XI DKV 2">XI DKV 2</option>
+        </select>
+        <button onclick="verifikasiNama()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Tampilkan Data
+        </button>
+    </div>
 
-
-			<div class="bg-white shadow-md rounded-lg p-6">
-				<table class="min-w-full table-auto">
-					<thead>
-						<tr>
-							<th class="px-4 py-2 text-left">Tanggal</th>
-							<th class="px-4 py-2 text-left">Nama</th>
-							<th class="px-4 py-2 text-left">Kelas</th>
-							<th class="px-4 py-2 text-left">Status</th>
-							<th class="px-4 py-2 text-left">Aksi</th>
-						</tr>
-					</thead>
-					<tbody id="dataController">
-						<?php if (!empty($pending_list)): ?>
-							<?php foreach ($pending_list as $pending): ?>
-								<tr>
-									<td class="px-4 py-2"><?= date('d-m-Y', strtotime($pending->tanggal)); ?></td>
-									<td class="px-4 py-2"><?= $pending->nama; ?></td>
-									<td class="px-4 py-2"><?= $pending->kelas; ?></td>
-									<td class="px-4 py-2"><?= $pending->status; ?></td>
-									<td class="px-4 py-2">
-										<button
-											class="text-blue-600 hover:underline"
-											onclick="handleApproval(<?= $pending->id; ?>, 'setuju')">
-											Setuju
-										</button>
-										<button
-											class="text-red-600 hover:underline ml-4"
-											onclick="handleApproval(<?= $pending->id; ?>, 'tolak')">
-											Tolak
-										</button>
-									</td>
-								</tr>
-							<?php endforeach; ?>
-						<?php else: ?>
+    <!-- Tabel Verifikasi -->
+		<div class="bg-white shadow-md rounded-lg p-6">
+			<table class="min-w-full table-auto">
+				<thead>
+					<tr>
+						<th class="px-4 py-2 text-left">Tanggal</th>
+						<th class="px-4 py-2 text-left">Nama</th>
+						<th class="px-4 py-2 text-left">Kelas</th>
+						<th class="px-4 py-2 text-left">Status</th>
+						<th class="px-4 py-2 text-left">Bukti</th>
+						<th class="px-4 py-2 text-left">Aksi</th>
+					</tr>
+				</thead>
+				<tbody id="dataController">
+					<?php if (!empty($pending_list)): ?>
+						<?php foreach ($pending_list as $pending): ?>
 							<tr>
-								<td colspan="5" class="px-4 py-2 text-center">Tidak ada data persetujuan.</td>
+								<td class="px-4 py-2"><?= date('d-m-Y', strtotime($pending->tanggal)); ?></td>
+								<td class="px-4 py-2"><?= htmlspecialchars($pending->nama); ?></td>
+								<td class="px-4 py-2"><?= htmlspecialchars($pending->kelas); ?></td>
+								<td class="px-4 py-2"><?= htmlspecialchars($pending->status); ?></td>
+								<td class="px-4 py-2">
+									<?php if (!empty($pending->bukti)): ?>
+										<a href="<?= base_url('uploads/bukti/' . $pending->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
+											Lihat Bukti
+										</a>
+									<?php else: ?>
+										Tidak Ada Bukti
+									<?php endif; ?>
+								</td>
+								<td class="px-4 py-2">
+									<button class="text-blue-600 hover:underline" onclick="handleApproval(<?= $pending->id; ?>, 'setuju')">Setuju</button>
+									<button class="text-red-600 hover:underline ml-4" onclick="handleApproval(<?= $pending->id; ?>, 'tolak')">Tolak</button>
+								</td>
 							</tr>
-						<?php endif; ?>
-					</tbody>
-				</table>
-			</div>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<tr>
+							<td colspan="6" class="px-4 py-2 text-center">Tidak ada data persetujuan.</td>
+						</tr>
+					<?php endif; ?>
+				</tbody>
+			</table>
 		</div>
+	</div>
 
 		<!-- Menutup div #verifikasiAbsenContent -->
 
@@ -289,50 +304,43 @@
 			<h1 class="text-3xl font-semibold mb-6">Rekap Absensi Siswa</h1>
 
 			<!-- Formulir untuk Filter -->
-			<form method="GET" action="<?= site_url('list_controller/rekap_absensi'); ?>" id="filterForm">
+			<!-- Formulir untuk Filter -->
+<form method="GET" action="<?= site_url('list_controller/rekap_absensi'); ?>" id="filterForm">
 
-				<div class="space-y-4">
-					<!-- Pilihan Bulan -->
-					<div>
-						<label for="bulan" class="block mb-2 font-medium text-gray-700">Pilih Bulan:</label>
-						<select name="bulan" id="bulan" class="block w-full p-2 border rounded-md">
-							<option value="">Semua Bulan</option>
-							<option value="1">Januari</option>
-							<option value="2">Februari</option>
-							<option value="3">Maret</option>
-							<option value="4">April</option>
-							<option value="5">Mei</option>
-							<option value="6">Juni</option>
-							<option value="7">Juli</option>
-							<option value="8">Agustus</option>
-							<option value="9">September</option>
-							<option value="10">Oktober</option>
-							<option value="11">November</option>
-							<option value="12">Desember</option>
-						</select>
-					</div>
+<div class="space-y-4">
+	<!-- Pencarian Nama -->
+	<div>
+		<label for="nama" class="block mb-2 font-medium text-gray-700">Pencarian Nama:</label>
+		<input type="text" id="nama" name="nama" class="block w-full p-2 border rounded-md" placeholder="Masukkan nama siswa">
+	</div>
 
-					<!-- Pilihan Kelas -->
-					<div>
-						<label for="kelas" class="block mb-2 font-medium text-gray-700">Pilih Kelas:</label>
-						<select name="kelas" id="kelas" class="block w-full p-2 border rounded-md">
-							<option value="">Semua Kelas</option>
-							<option value="XII RPL 1">XII RPL 1</option>
-							<option value="XII RPL 2">XII RPL 2</option>
-							<option value="XI RPL 1">XI RPL 1</option>
-							<option value="XI RPL 2">XI RPL 2</option>
-							<option value="X RPL 1">X RPL 1</option>
-							<option value="X RPL 2">X RPL 2</option>
-							<option value="XI DKV 1">XI DKV 1</option>
-							<option value="XI DKV 2">XI DKV 2</option>
-							<!-- Tambahkan kelas lainnya -->
-						</select>
-					</div>
+	<!-- Pilihan Tanggal -->
+	<div>
+		<label for="tanggal" class="block mb-2 font-medium text-gray-700">Pilih Tanggal:</label>
+		<input type="date" id="tanggal" name="tanggal" class="block w-full p-2 border rounded-md">
+	</div>
 
-					<!-- Tombol Filter -->
-					<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md" id="filterButton">Filter</button>
-				</div>
-			</form>
+	<!-- Pilihan Kelas -->
+	<div>
+		<label for="kelas" class="block mb-2 font-medium text-gray-700">Pilih Kelas:</label>
+		<select name="kelas" id="kelas" class="block w-full p-2 border rounded-md">
+			<option value="">Semua Kelas</option>
+			<option value="XII RPL 1">XII RPL 1</option>
+			<option value="XII RPL 2">XII RPL 2</option>
+			<option value="XI RPL 1">XI RPL 1</option>
+			<option value="XI RPL 2">XI RPL 2</option>
+			<option value="X RPL 1">X RPL 1</option>
+			<option value="X RPL 2">X RPL 2</option>
+			<option value="XI DKV 1">XI DKV 1</option>
+			<option value="XI DKV 2">XI DKV 2</option>
+			<!-- Tambahkan kelas lainnya jika ada -->
+		</select>
+	</div>
+
+	<!-- Tombol Filter -->
+	<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md" id="filterButton">Filter</button>
+</div>
+</form>
 
 			<!-- Hasil Filter -->
 			<div id="dataSeluruhSiswaContent" class="w-3/4 p-6">
@@ -647,53 +655,49 @@
 			}
 		}
 
-		function capitalizeFirstLetter(string) {
-			return string.charAt(0).toUpperCase() + string.slice(1);
-		}
-
 		function handleApproval(id, action) {
-			const url = `<?= site_url('dashboard_guru/'); ?>` + action + '/' + id;
-			const actionText = action === 'setuju' ? 'menyetujui' : 'menolak';
+    const url = `<?= site_url('dashboard_guru/'); ?>` + action + '/' + id;
+    const actionText = action === 'setuju' ? 'menyetujui' : 'menolak';
 
-			Swal.fire({
-				title: `Apakah Anda yakin ingin ${actionText} absensi ini?`,
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonText: 'Ya, Lanjutkan',
-				cancelButtonText: 'Batal',
-			}).then((result) => {
-				if (result.isConfirmed) {
-					fetch(url)
-						.then(response => {
-							if (response.ok) {
-								return response.text();
-							} else {
-								throw new Error('Gagal memproses permintaan.');
-							}
-						})
-						.then(() => {
-							Swal.fire({
-								title: 'Berhasil!',
-								text: `Absensi berhasil ${actionText}.`,
-								icon: 'success',
-								confirmButtonText: 'OK'
-							}).then(() => {
-								location.reload(); // Perbarui halaman
-							});
-						})
-						.catch(error => {
-							Swal.fire({
-								title: 'Error!',
-								text: error.message,
-								icon: 'error',
-								confirmButtonText: 'OK'
-							});
-						});
-				}
-			});
-		}
+    Swal.fire({
+        title: `Apakah Anda yakin ingin ${actionText} absensi ini?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Lanjutkan',
+        cancelButtonText: 'Batal',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Gagal memproses permintaan.');
+                    }
+                })
+                .then(() => {
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: `Absensi berhasil ${actionText}.`,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: error.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                });
+        }
+    });
+}
 
-		function verifikasiNama() {
+function verifikasiNama() {
     const selectedKelas = document.getElementById('verifikasiKelas').value;
 
     $.ajax({
@@ -701,30 +705,26 @@
         method: 'POST',
         data: { kelas: selectedKelas },
         beforeSend: function() {
-            // Tampilkan pesan loading
             document.getElementById('dataController').innerHTML = `
                 <tr>
-                    <td colspan="5" class="text-center">Memuat data...</td>
+                    <td colspan="6" class="text-center">Memuat data...</td>
                 </tr>`;
         },
         success: function(response) {
             const container = document.getElementById('dataController');
-
-            // Periksa apakah respons kosong
             if (response.trim() === '') {
                 container.innerHTML = `
                     <tr>
-                        <td colspan="5" class="text-center">Tidak ada data tersedia untuk kelas yang dipilih.</td>
+                        <td colspan="6" class="text-center">Tidak ada data tersedia untuk kelas yang dipilih.</td>
                     </tr>`;
             } else {
-                // Tampilkan data yang diterima dari server
                 container.innerHTML = response;
             }
         },
         error: function(xhr, status, error) {
             document.getElementById('dataController').innerHTML = `
                 <tr>
-                    <td colspan="5" class="text-center">Terjadi kesalahan saat memuat data. Silakan coba lagi.</td>
+                    <td colspan="6" class="text-center">Terjadi kesalahan saat memuat data. Silakan coba lagi.</td>
                 </tr>`;
             console.error('Error:', {
                 status: status,
@@ -734,6 +734,7 @@
         }
     });
 }
+
 
 	</script>
 

@@ -29,16 +29,36 @@ class List_model extends CI_Model {
 
 	public function get_absensi_hari_ini($kelas = null)
 {
-    $this->db->select('*');
-    $this->db->from('absensi'); // Sesuaikan nama tabel Anda
+    $this->db->select('*'); // Pastikan kolom 'bukti' termasuk di dalam SELECT
+    $this->db->from('absensi'); 
     if ($kelas) {
         $this->db->where('kelas', $kelas);
     }
     $this->db->where('DATE(tanggal)', date('Y-m-d')); // Hanya data hari ini
-    return $this->db->get()->result();
+    return $this->db->get()->result(); // Mengembalikan data absensi
 }
 
-	
+
+public function get_absensi_by_filters($nama = null, $tanggal = null, $kelas = null)
+{
+    $this->db->select('*'); // Pastikan 'bukti' ada di SELECT
+    $this->db->from('absensi');
+
+    if ($nama) {
+        $this->db->like('nama', $nama); 
+    }
+    if ($tanggal) {
+        $this->db->where('DATE(tanggal)', $tanggal); 
+    }
+    if ($kelas) {
+        $this->db->where('kelas', $kelas); 
+    }
+
+    $query = $this->db->get();
+    return $query->result();
+}
+
+
 
     // Fungsi baru: Filter absensi berdasarkan bulan dan kelas
     public function get_absensi($bulan = null, $kelas = null) {

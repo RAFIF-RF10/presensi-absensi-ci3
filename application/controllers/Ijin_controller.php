@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property CI_Session $session
  * @property Persetujuan_model $Persetujuan_model
  * @property Ijin_model $Ijin_model
+ * @property upload $upload
  */
 class Ijin_controller extends CI_Controller
 {
@@ -71,58 +72,96 @@ class Ijin_controller extends CI_Controller
 	}
 
 	// Fungsi untuk mengupdate status absensi siswa
-	public function set_status()
-	{
+	public function set_status() {
 		$status = $this->input->post('status');
 		$nama = $this->session->userdata('siswa_nama');
 		$kelas = $this->session->userdata('siswa_kelas');
-		$tanggal = date('Y-m-d H:i:s'); // Format lengkap dengan waktu
-
-		// Periksa apakah absensi sudah ada hari ini
+		$datetime = date('Y-m-d H:i:s'); // Format tanggal dan waktu (DATETIME)
+	
+		$bukti = null; // Inisialisasi variabel bukti
+		$allowed_types = 'jpg|jpeg|png|pdf'; // Format file yang diperbolehkan
+	
+		if (in_array($status, ['izin', 'sakit', 'dispen'])) {
+			// Proses upload file jika ada
+			$config['upload_path'] = './uploads/bukti/';
+			$config['allowed_types'] = $allowed_types;
+			$config['max_size'] = 2048; // Maksimum 2MB
+			$config['file_name'] = strtolower($nama . '_' . time());
+	
+			$this->load->library('upload', $config);
+	
+			if ($this->upload->do_upload('bukti')) {
+				$bukti = $this->upload->data('file_name'); // Simpan nama file
+			} else {
+				// Ambil pesan error dan tambahkan informasi format file yang diperbolehkan
+				$error = $this->upload->display_errors('', '');
+				$this->session->set_flashdata('message', 'Gagal mengunggah bukti: ' . $error . 
+					' Format yang diperbolehkan: ' . str_replace('|', ', ', $allowed_types) . '.');
+				redirect('dashboard_siswa');
+				return;
+			}
+		}
+	
 		if ($this->Ijin_model->check_absen_today($nama, $kelas)) {
 			$this->session->set_flashdata('message', 'Absensi untuk hari ini sudah dilakukan.');
 		} else {
+			// Masukkan data ke tabel `pending`
 			$data = [
-				'tanggal' => $tanggal, // Simpan sebagai `DATETIME`
+				'tanggal' => $datetime, // Gunakan format DATETIME
 				'nama' => $nama,
 				'kelas' => $kelas,
-				'status' => $status,
+				'status' => $status, // Hadir/Sakit/Izin/Dispen
+				'bukti' => $bukti, // Nama file bukti
 			];
-			$inserted = $this->Ijin_model->insert_pending($data);
-			if ($inserted) {
+	
+			if ($this->Ijin_model->insert_pending($data)) {
 				$this->session->set_flashdata('message', 'Absensi berhasil dicatat.');
 			} else {
 				$this->session->set_flashdata('message', 'Terjadi kesalahan saat mencatat absensi.');
 			}
 		}
-
+	
 		redirect('dashboard_siswa');
 	}
 	
+	
 	public function filter_by_kelas() {
-    $kelas = $this->input->post('kelas');
-    $pending_list = empty($kelas)
-        ? $this->Persetujuan_model->get_all_pending()
-        : $this->Persetujuan_model->get_pending_by_kelas($kelas);
-
-    if (!empty($pending_list)) {
-        foreach ($pending_list as $pending) {
-            echo '
-                <tr>
-                    <td>' . date('d-m-Y', strtotime($pending->tanggal)) . '</td>
-                    <td>' . htmlspecialchars($pending->nama) . '</td>
-                    <td>' . htmlspecialchars($pending->kelas) . '</td>
-                    <td>' . htmlspecialchars($pending->status) . '</td>
-                    <td>
-                        <button class="text-blue-600 hover:underline" onclick="handleApproval(' . $pending->id . ', \'setuju\')">Setuju</button>
-                        <button class="text-red-600 hover:underline ml-4" onclick="handleApproval(' . $pending->id . ', \'tolak\')">Tolak</button>
-                    </td>
-                </tr>';
-        }
-    } else {
-        // Kirim respons kosong untuk ditangani di sisi klien
-        echo '';
-    }
+		$kelas = $this->input->post('kelas');
+		$pending_list = empty($kelas)
+			? $this->Persetujuan_model->get_all_pending()
+			: $this->Persetujuan_model->get_pending_by_kelas($kelas);
+	
+		if (!empty($pending_list)) {
+			foreach ($pending_list as $pending) {
+				echo '
+					<tr>
+						<td>' . date('d-m-Y', strtotime($pending->tanggal)) . '</td>
+						<td>' . htmlspecialchars($pending->nama) . '</td>
+						<td>' . htmlspecialchars($pending->kelas) . '</td>
+						<td class="px-4 py-2">';
+				
+				if (!empty($pending->bukti)) {
+					echo '<a href="' . base_url('uploads/bukti/' . $pending->bukti) . '" target="_blank" class="text-blue-600 hover:underline">
+							Lihat Bukti
+						  </a>';
+				} else {
+					echo 'Tidak Ada Bukti';
+				}
+	
+				echo '</td>
+						<td>' . htmlspecialchars($pending->status) . '</td>
+						<td>
+							<button class="text-blue-600 hover:underline" onclick="handleApproval(' . $pending->id . ', \'setuju\')">Setuju</button>
+							<button class="text-red-600 hover:underline ml-4" onclick="handleApproval(' . $pending->id . ', \'tolak\')">Tolak</button>
+						</td>
+					</tr>';
+			}
+		} else {
+			echo '<tr><td colspan="6" class="text-center">Tidak ada data pending</td></tr>';
+		}
+	}
+	
+	
+	
 }
 
-}
