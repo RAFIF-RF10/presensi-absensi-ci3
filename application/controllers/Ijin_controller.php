@@ -28,33 +28,44 @@ class Ijin_controller extends CI_Controller
 	}
 
 	// Fungsi untuk menyetujui absensi
-	public function setuju($id)
-	{
-		$pending = $this->Persetujuan_model->get_pending_by_id($id);
+public function setuju($id)
+{
+    // Ambil data pending berdasarkan ID
+    $pending = $this->Persetujuan_model->get_pending_by_id($id);
 
-		if ($pending) {
-			// Masukkan data absensi ke tabel absensi
-			$data = [
-				'tanggal' => $pending->tanggal,
-				'nama' => $pending->nama,
-				'kelas' => $pending->kelas,
-				'status' => $pending->status,
-			];
-			$inserted = $this->Persetujuan_model->insert_to_absensi($data);
+    if ($pending) {
+        // Masukkan data yang disetujui ke tabel absensi
+        $data = [
+            'tanggal' => $pending->tanggal,
+            'nama' => $pending->nama,
+            'kelas' => $pending->kelas,
+            'status' => $pending->status,
+            'bukti' => $pending->bukti,  // Pastikan bukti disertakan
+        ];
+		
+        // Masukkan data ke tabel absensi
+        $inserted = $this->Persetujuan_model->insert_to_absensi($data);
+		echo($pending->bukti);
 
-			if ($inserted) {
-				// Hapus data pending setelah disetujui
-				$this->Persetujuan_model->delete_pending($id);
-				$this->session->set_flashdata('message', 'Absensi berhasil disetujui.');
-			} else {
-				$this->session->set_flashdata('message', 'Terjadi kesalahan saat menyetujui absensi.');
-			}
-		} else {
-			$this->session->set_flashdata('message', 'Data tidak ditemukan.');
-		}
+        if ($inserted) {
+            // Hapus data pending setelah disetujui
+            $this->Persetujuan_model->delete_pending($id);
+            // Kirimkan pesan sukses
+            $this->session->set_flashdata('message', 'Absensi berhasil disetujui.');
+        } else {
+            // Kirimkan pesan error jika gagal
+            $this->session->set_flashdata('message', 'Terjadi kesalahan saat menyetujui absensi.');
+        }
+    } else {
+        // Kirimkan pesan error jika data tidak ditemukan
+        $this->session->set_flashdata('message', 'Data tidak ditemukan.');
+    }
 
-		redirect('dashboard_guru/verifikasi_absen');
-	}
+    // Redirect kembali ke halaman verifikasi absensi
+    redirect('dashboard_guru/verifikasi_absen');
+}
+
+
 
 	// Fungsi untuk menolak absensi
 	public function tolak($id)

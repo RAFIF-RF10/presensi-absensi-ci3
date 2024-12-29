@@ -37,6 +37,7 @@ class Dashboard_guru extends CI_Controller {
             'kelas' => $pending_absensi->kelas,
             'status' => $pending_absensi->status,
             'tanggal' => $pending_absensi->tanggal,
+            'bukti' => $pending_absensi->bukti,
         ];
 
         if ($this->Persetujuan_model->insert_to_absensi($absensi_data)) {

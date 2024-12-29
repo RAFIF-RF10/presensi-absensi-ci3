@@ -347,11 +347,12 @@
 				<h1 class="text-3xl font-semibold mb-6">Rekap Absensi Siswa</h1>
 
 				<!-- Tabel untuk Menampilkan Rekap Absensi -->
-				<table class="w-[50vw] bg-white border border-gray-300 rounded-lg shadow-md mt-6">
+				<table id="rekapTable" class="w-[50vw] bg-white border border-gray-300 rounded-lg shadow-md mt-6">
 					<thead class="bg-gray-100">
 						<tr>
 							<th class="py-3 px-6 text-left font-semibold text-gray-700">Nama</th>
 							<th class="py-3 px-6 text-left font-semibold text-gray-700">Kelas</th>
+							<th class="py-3 px-6 text-left font-semibold text-gray-700">Bukti</th>
 							<th class="py-3 px-6 text-left font-semibold text-gray-700">Status</th>
 							<th class="py-3 px-6 text-left font-semibold text-gray-700">Tanggal</th>
 						</tr>
@@ -360,8 +361,18 @@
 						<?php if (!empty($rekap_absensi)) : ?>
 							<?php foreach ($rekap_absensi as $absensi) : ?>
 								<tr class="hover:bg-gray-50 transition-colors duration-200 border-t-2">
-									<td class="py-3 px-6 text-gray-800"><?= htmlspecialchars($absensi->nama); ?></td>
+									<td class="py-3 px-6 text-gray-800"><?= htmlspecialchars ($absensi->nama) ?></td>
 									<td class="py-3 px-6 text-gray-800"><?= htmlspecialchars($absensi->kelas); ?></td>
+									<td class="px-4 py-2">
+									<?php if (!empty($absensi->bukti)): ?>
+										<a href="<?= base_url('uploads/bukti/' . $absensi->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
+											Lihat Bukti
+										</a>
+										
+									<?php else: ?>
+										Tidak Ada Bukti
+									<?php endif; ?>
+								</td>
 									<td class="py-3 px-6  <?php
 															switch ($absensi->status) {
 																case 'masuk':
@@ -394,6 +405,12 @@
 							</tr>
 						<?php endif; ?>
 					</tbody>
+					<<div class="mb-4">
+       <!-- Tombol untuk Ekspor CSV -->
+    <button id="exportButton" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition mt-4">
+        Unduh Rekap Excel
+    </button>	
+    </div>
 				</table>
 
 
@@ -735,6 +752,32 @@ function verifikasiNama() {
     });
 }
 
+document.getElementById("exportButton").addEventListener("click", function () {
+    let table = document.getElementById("rekapTable");
+    if (!table) {
+        alert("Tabel tidak ditemukan. Pastikan ID tabel sesuai!");
+        return;
+    }
+
+    let csvContent = [];
+    for (let i = 0; i < table.rows.length; i++) {
+        let row = [];
+        for (let j = 0; j < table.rows[i].cells.length; j++) {
+            row.push(table.rows[i].cells[j].innerText.replace(/,/g, "")); // Menghapus koma untuk mencegah konflik
+        }
+        csvContent.push(row.join("\t")); // Ganti koma dengan tab
+    }
+
+    let csvString = csvContent.join("\n");
+    let link = document.createElement("a");
+    link.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csvString);
+    link.download = "rekap_absensi.tsv"; // Gunakan ekstensi .tsv
+    link.style.display = "none";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
 
 	</script>
 
