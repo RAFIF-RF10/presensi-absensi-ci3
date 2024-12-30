@@ -6,6 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- CDN jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <!-- CDN jsPDF autoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 	<link href="<?= base_url('/assets/css/output.css'); ?>" rel="stylesheet">
 	<link rel="icon" href="<?= base_url('/assets/image/logo.png'); ?>" type="image/x-icon">
 
@@ -405,11 +410,9 @@
 							</tr>
 						<?php endif; ?>
 					</tbody>
-					<<div class="mb-4">
-       <!-- Tombol untuk Ekspor CSV -->
-    <button id="exportButton" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition mt-4">
-        Unduh Rekap Excel
-    </button>	
+						<div class="mb-4">
+						<button id="downloadExcel" class="btn btn-primary">Unduh Excel</button>
+						<button id="downloadPDF" class="btn btn-danger">Unduh PDF</button>
     </div>
 				</table>
 
@@ -752,33 +755,49 @@ function verifikasiNama() {
     });
 }
 
-document.getElementById("exportButton").addEventListener("click", function () {
-    let table = document.getElementById("rekapTable");
-    if (!table) {
-        alert("Tabel tidak ditemukan. Pastikan ID tabel sesuai!");
-        return;
-    }
+fetch('<?= base_url('rekap/get_data_absensi'); ?>')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#rekapTable tbody');
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.nama}</td>
+                        <td>${row.kelas}</td>
+                        <td>${row.status}</td>
+                        <td>${row.tanggal}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            });
 
-    let csvContent = [];
-    for (let i = 0; i < table.rows.length; i++) {
-        let row = [];
-        for (let j = 0; j < table.rows[i].cells.length; j++) {
-            row.push(table.rows[i].cells[j].innerText.replace(/,/g, "")); // Menghapus koma untuk mencegah konflik
-        }
-        csvContent.push(row.join("\t")); // Ganti koma dengan tab
-    }
+        // Unduh Excel
+        document.getElementById('downloadExcel').addEventListener('click', () => {
+            const table = document.getElementById('rekapTable');
+            const workbook = XLSX.utils.table_to_book(table, { sheet: "Rekap Absensi" });
+            XLSX.writeFile(workbook, 'rekap_absensi.xlsx');
+        });
 
-    let csvString = csvContent.join("\n");
-    let link = document.createElement("a");
-    link.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csvString);
-    link.download = "rekap_absensi.tsv"; // Gunakan ekstensi .tsv
-    link.style.display = "none";
+        // Unduh PDF
+        document.getElementById('downloadPDF').addEventListener('click', async () => {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-});
+            // Tambahkan judul
+            pdf.text("Rekap Absensi", 10, 10);
 
+            // Ambil data tabel
+            const table = document.getElementById('rekapTable');
+            const rows = Array.from(table.querySelectorAll('tr')).map(tr => 
+                Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent)
+            );
+
+            // Tambahkan tabel ke PDF
+            pdf.autoTable({ head: [rows[0]], body: rows.slice(1) });
+
+            // Simpan file PDF
+            pdf.save('rekap_absensi.pdf');
+        });
 	</script>
 
 

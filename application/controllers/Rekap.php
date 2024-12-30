@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**	
+ * @property db $db
+ */
 class Rekap extends CI_Controller
 {
     public function index()
