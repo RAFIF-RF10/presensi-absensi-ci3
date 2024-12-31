@@ -7,10 +7,10 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <!-- CDN jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <!-- CDN jsPDF autoTable -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+	<!-- CDN jsPDF -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+	<!-- CDN jsPDF autoTable -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 	<link href="<?= base_url('/assets/css/output.css'); ?>" rel="stylesheet">
 	<link rel="icon" href="<?= base_url('/assets/image/logo.png'); ?>" type="image/x-icon">
 
@@ -71,7 +71,48 @@
 						<option value="X RPL 1">X RPL 1</option>
 						<option value="X RPL 2">X RPL 2</option>
 						<option value="XI DKV 1">XI DKV 1</option>
+						<option value="X DKV 1">X DKV 1</option>
+						<option value="X DKV 2">X DKV 2</option>
 						<option value="XI DKV 2">XI DKV 2</option>
+						<option value="XII DKV 1">XII DKV 1</option>
+						<option value="XII DKV 2">XII DKV 2</option>
+						<option value="X TKJ 1">X TKJ 1</option>
+						<option value="X TKJ 2">X TKJ 2</option>
+						<option value="XI TKJ 1">XI TKJ 1</option>
+						<option value="XI TKJ 2">XI TKJ 2</option>
+						<option value="XII TKJ 1">XII TKJ 1</option>
+						<option value="XII TKJ 2">XII TKJ 2</option>
+						<option value="X APT 1">X APT 1</option>
+						<option value="X APT 2">X APT 2</option>
+						<option value="XI APT 1">XI APT 1</option>
+						<option value="XI APT 2">XI APT 2</option>
+						<option value="XII APT 1">XII APT 1</option>
+						<option value="XII APT 2">XII APT 2</option>
+						<option value="X ATPH 1">X ATPH 1</option>
+						<option value="X ATPH 2">X ATPH 2</option>
+						<option value="XI ATPH 1">XI ATPH 1</option>
+						<option value="XI ATPH 2">XI ATPH 2</option>
+						<option value="XII ATPH 1">XII ATPH 1</option>
+						<option value="XII ATPH 2">XII ATPH 2</option>
+						<option value="X TKRO 1">X TKRO 1</option>
+						<option value="X TKRO 2">X TKRO 2</option>
+						<option value="X TKRO 3">X TKRO 3</option>
+						<option value="XI TKRO 1">XI TKRO 1</option>
+						<option value="XI TKRO 2">XI TKRO 2</option>
+						<option value="XI TKRO 3">XI TKRO 3</option>
+						<option value="XII TKRO 1">XII TKRO 1</option>
+						<option value="XII TKRO 2">XII TKRO 2</option>
+						<option value="XII TKRO 3">XII TKRO 3</option>
+						<option value="X TBSM 1">X TBSM 1</option>
+						<option value="X TBSM 2">X TBSM 2</option>
+						<option value="X TBSM 3">X TBSM 3</option>
+						<option value="XI TBSM 1">XI TBSM 1</option>
+						<option value="XI TBSM 2">XI TBSM 2</option>
+						<option value="XI TBSM 3">XI TBSM 3</option>
+						<option value="XII TBSM 1">XII TBSM 1</option>
+						<option value="XII TBSM 2">XII TBSM 2</option>
+						<option value="XII TBSM 3">XII TBSM 3</option>
+
 					</select>
 					<button onclick="filterDataByKelas()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
 						Tampilkan Data
@@ -156,7 +197,48 @@
 					<option value="X RPL 1">X RPL 1</option>
 					<option value="X RPL 2">X RPL 2</option>
 					<option value="XI DKV 1">XI DKV 1</option>
+					<option value="X DKV 1">X DKV 1</option>
+					<option value="X DKV 2">X DKV 2</option>
 					<option value="XI DKV 2">XI DKV 2</option>
+					<option value="XII DKV 1">XII DKV 1</option>
+					<option value="XII DKV 2">XII DKV 2</option>
+					<option value="X TKJ 1">X TKJ 1</option>
+					<option value="X TKJ 2">X TKJ 2</option>
+					<option value="XI TKJ 1">XI TKJ 1</option>
+					<option value="XI TKJ 2">XI TKJ 2</option>
+					<option value="XII TKJ 1">XII TKJ 1</option>
+					<option value="XII TKJ 2">XII TKJ 2</option>
+					<option value="X APT 1">X APT 1</option>
+					<option value="X APT 2">X APT 2</option>
+					<option value="XI APT 1">XI APT 1</option>
+					<option value="XI APT 2">XI APT 2</option>
+					<option value="XII APT 1">XII APT 1</option>
+					<option value="XII APT 2">XII APT 2</option>
+					<option value="X ATPH 1">X ATPH 1</option>
+					<option value="X ATPH 2">X ATPH 2</option>
+					<option value="XI ATPH 1">XI ATPH 1</option>
+					<option value="XI ATPH 2">XI ATPH 2</option>
+					<option value="XII ATPH 1">XII ATPH 1</option>
+					<option value="XII ATPH 2">XII ATPH 2</option>
+					<option value="X TKRO 1">X TKRO 1</option>
+					<option value="X TKRO 2">X TKRO 2</option>
+					<option value="X TKRO 3">X TKRO 3</option>
+					<option value="XI TKRO 1">XI TKRO 1</option>
+					<option value="XI TKRO 2">XI TKRO 2</option>
+					<option value="XI TKRO 3">XI TKRO 3</option>
+					<option value="XII TKRO 1">XII TKRO 1</option>
+					<option value="XII TKRO 2">XII TKRO 2</option>
+					<option value="XII TKRO 3">XII TKRO 3</option>
+					<option value="X TBSM 1">X TBSM 1</option>
+					<option value="X TBSM 2">X TBSM 2</option>
+					<option value="X TBSM 3">X TBSM 3</option>
+					<option value="XI TBSM 1">XI TBSM 1</option>
+					<option value="XI TBSM 2">XI TBSM 2</option>
+					<option value="XI TBSM 3">XI TBSM 3</option>
+					<option value="XII TBSM 1">XII TBSM 1</option>
+					<option value="XII TBSM 2">XII TBSM 2</option>
+					<option value="XII TBSM 3">XII TBSM 3</option>
+
 				</select>
 				<button onclick="filterDataAbsensiHari()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
 					Tampilkan Data
@@ -171,7 +253,7 @@
 							<th class="px-6 py-3 text-left font-semibold">Nama</th>
 							<th class="px-6 py-3 text-left font-semibold">Kelas</th>
 							<th class="px-6 py-3 text-left font-semibold">Bukti
-								
+
 							</th>
 							<th class="px-6 py-3 text-left font-semibold">Status</th>
 						</tr>
@@ -184,15 +266,15 @@
 									<td class="px-6 py-3 border border-gray-300"><?= $absensi->nama; ?></td>
 									<td class="px-6 py-3 border border-gray-300"><?= $absensi->kelas; ?></td>
 									<td class="px-6 py-3 border border-gray-300">
-									
-									<?php if (!empty($absensi->bukti)): ?>
-										<a href="<?= base_url('uploads/bukti/' . $absensi->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
-											Lihat Bukti
-										</a>
-									<?php else: ?>
-										Tidak Ada Bukti
-									<?php endif; ?>
-								</td>
+
+										<?php if (!empty($absensi->bukti)): ?>
+											<a href="<?= base_url('uploads/bukti/' . $absensi->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
+												Lihat Bukti
+											</a>
+										<?php else: ?>
+											Tidak Ada Bukti
+										<?php endif; ?>
+									</td>
 									<td class="px-6 py-3 border border-gray-300">
 										<span class="px-3 py-1 rounded-full text-white font-semibold 
                                 <?php
@@ -236,72 +318,113 @@
 
 		<!-- Verifikasi Absen -->
 		<div id="verifikasiAbsenContent" class="w-3/4 p-8">
-    <h1 class="text-3xl font-semibold mb-6">Verifikasi Absensi Hari Ini</h1>
+			<h1 class="text-3xl font-semibold mb-6">Verifikasi Absensi Hari Ini</h1>
 
-    <!-- Dropdown Kelas -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <label for="kelas" class="block text-gray-700 font-semibold mb-2">Pilih Kelas:</label>
-        <select id="verifikasiKelas" class="w-full p-2 border border-gray-300 rounded">
-            <option value="">Semua Kelas</option>
-            <option value="XII RPL 1">XII RPL 1</option>
-            <option value="XII RPL 2">XII RPL 2</option>
-            <option value="XI RPL 1">XI RPL 1</option>
-            <option value="XI RPL 2">XI RPL 2</option>
-            <option value="X RPL 1">X RPL 1</option>
-            <option value="X RPL 2">X RPL 2</option>
-            <option value="XI DKV 1">XI DKV 1</option>
-            <option value="XI DKV 2">XI DKV 2</option>
-        </select>
-        <button onclick="verifikasiNama()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Tampilkan Data
-        </button>
-    </div>
+			<!-- Dropdown Kelas -->
+			<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+				<label for="kelas" class="block text-gray-700 font-semibold mb-2">Pilih Kelas:</label>
+				<select id="verifikasiKelas" class="w-full p-2 border border-gray-300 rounded">
+					<option value="">Semua Kelas</option>
+					<option value="XII RPL 1">XII RPL 1</option>
+					<option value="XII RPL 2">XII RPL 2</option>
+					<option value="XI RPL 1">XI RPL 1</option>
+					<option value="XI RPL 2">XI RPL 2</option>
+					<option value="X RPL 1">X RPL 1</option>
+					<option value="X RPL 2">X RPL 2</option>
+					<option value="XI DKV 1">XI DKV 1</option>
+					<option value="X DKV 1">X DKV 1</option>
+					<option value="X DKV 2">X DKV 2</option>
+					<option value="XI DKV 2">XI DKV 2</option>
+					<option value="XII DKV 1">XII DKV 1</option>
+					<option value="XII DKV 2">XII DKV 2</option>
+					<option value="X TKJ 1">X TKJ 1</option>
+					<option value="X TKJ 2">X TKJ 2</option>
+					<option value="XI TKJ 1">XI TKJ 1</option>
+					<option value="XI TKJ 2">XI TKJ 2</option>
+					<option value="XII TKJ 1">XII TKJ 1</option>
+					<option value="XII TKJ 2">XII TKJ 2</option>
+					<option value="X APT 1">X APT 1</option>
+					<option value="X APT 2">X APT 2</option>
+					<option value="XI APT 1">XI APT 1</option>
+					<option value="XI APT 2">XI APT 2</option>
+					<option value="XII APT 1">XII APT 1</option>
+					<option value="XII APT 2">XII APT 2</option>
+					<option value="X ATPH 1">X ATPH 1</option>
+					<option value="X ATPH 2">X ATPH 2</option>
+					<option value="XI ATPH 1">XI ATPH 1</option>
+					<option value="XI ATPH 2">XI ATPH 2</option>
+					<option value="XII ATPH 1">XII ATPH 1</option>
+					<option value="XII ATPH 2">XII ATPH 2</option>
+					<option value="X TKRO 1">X TKRO 1</option>
+					<option value="X TKRO 2">X TKRO 2</option>
+					<option value="X TKRO 3">X TKRO 3</option>
+					<option value="XI TKRO 1">XI TKRO 1</option>
+					<option value="XI TKRO 2">XI TKRO 2</option>
+					<option value="XI TKRO 3">XI TKRO 3</option>
+					<option value="XII TKRO 1">XII TKRO 1</option>
+					<option value="XII TKRO 2">XII TKRO 2</option>
+					<option value="XII TKRO 3">XII TKRO 3</option>
+					<option value="X TBSM 1">X TBSM 1</option>
+					<option value="X TBSM 2">X TBSM 2</option>
+					<option value="X TBSM 3">X TBSM 3</option>
+					<option value="XI TBSM 1">XI TBSM 1</option>
+					<option value="XI TBSM 2">XI TBSM 2</option>
+					<option value="XI TBSM 3">XI TBSM 3</option>
+					<option value="XII TBSM 1">XII TBSM 1</option>
+					<option value="XII TBSM 2">XII TBSM 2</option>
+					<option value="XII TBSM 3">XII TBSM 3</option>
 
-    <!-- Tabel Verifikasi -->
-		<div class="bg-white shadow-md rounded-lg p-6">
-			<table class="min-w-full table-auto">
-				<thead>
-					<tr>
-						<th class="px-4 py-2 text-left">Tanggal</th>
-						<th class="px-4 py-2 text-left">Nama</th>
-						<th class="px-4 py-2 text-left">Kelas</th>
-						<th class="px-4 py-2 text-left">Status</th>
-						<th class="px-4 py-2 text-left">Bukti</th>
-						<th class="px-4 py-2 text-left">Aksi</th>
-					</tr>
-				</thead>
-				<tbody id="dataController">
-					<?php if (!empty($pending_list)): ?>
-						<?php foreach ($pending_list as $pending): ?>
-							<tr>
-								<td class="px-4 py-2"><?= date('d-m-Y', strtotime($pending->tanggal)); ?></td>
-								<td class="px-4 py-2"><?= htmlspecialchars($pending->nama); ?></td>
-								<td class="px-4 py-2"><?= htmlspecialchars($pending->kelas); ?></td>
-								<td class="px-4 py-2"><?= htmlspecialchars($pending->status); ?></td>
-								<td class="px-4 py-2">
-									<?php if (!empty($pending->bukti)): ?>
-										<a href="<?= base_url('uploads/bukti/' . $pending->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
-											Lihat Bukti
-										</a>
-									<?php else: ?>
-										Tidak Ada Bukti
-									<?php endif; ?>
-								</td>
-								<td class="px-4 py-2">
-									<button class="text-blue-600 hover:underline" onclick="handleApproval(<?= $pending->id; ?>, 'setuju')">Setuju</button>
-									<button class="text-red-600 hover:underline ml-4" onclick="handleApproval(<?= $pending->id; ?>, 'tolak')">Tolak</button>
-								</td>
-							</tr>
-						<?php endforeach; ?>
-					<?php else: ?>
+				</select>
+				<button onclick="verifikasiNama()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+					Tampilkan Data
+				</button>
+			</div>
+
+			<!-- Tabel Verifikasi -->
+			<div class="bg-white shadow-md rounded-lg p-6">
+				<table class="min-w-full table-auto">
+					<thead>
 						<tr>
-							<td colspan="6" class="px-4 py-2 text-center">Tidak ada data persetujuan.</td>
+							<th class="px-4 py-2 text-left">Tanggal</th>
+							<th class="px-4 py-2 text-left">Nama</th>
+							<th class="px-4 py-2 text-left">Kelas</th>
+							<th class="px-4 py-2 text-left">Status</th>
+							<th class="px-4 py-2 text-left">Bukti</th>
+							<th class="px-4 py-2 text-left">Aksi</th>
 						</tr>
-					<?php endif; ?>
-				</tbody>
-			</table>
+					</thead>
+					<tbody id="dataController">
+						<?php if (!empty($pending_list)): ?>
+							<?php foreach ($pending_list as $pending): ?>
+								<tr>
+									<td class="px-4 py-2"><?= date('d-m-Y', strtotime($pending->tanggal)); ?></td>
+									<td class="px-4 py-2"><?= htmlspecialchars($pending->nama); ?></td>
+									<td class="px-4 py-2"><?= htmlspecialchars($pending->kelas); ?></td>
+									<td class="px-4 py-2"><?= htmlspecialchars($pending->status); ?></td>
+									<td class="px-4 py-2">
+										<?php if (!empty($pending->bukti)): ?>
+											<a href="<?= base_url('uploads/bukti/' . $pending->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
+												Lihat Bukti
+											</a>
+										<?php else: ?>
+											Tidak Ada Bukti
+										<?php endif; ?>
+									</td>
+									<td class="px-4 py-2">
+										<button class="text-blue-600 hover:underline" onclick="handleApproval(<?= $pending->id; ?>, 'setuju')">Setuju</button>
+										<button class="text-red-600 hover:underline ml-4" onclick="handleApproval(<?= $pending->id; ?>, 'tolak')">Tolak</button>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						<?php else: ?>
+							<tr>
+								<td colspan="6" class="px-4 py-2 text-center">Tidak ada data persetujuan.</td>
+							</tr>
+						<?php endif; ?>
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
 
 		<!-- Menutup div #verifikasiAbsenContent -->
 
@@ -310,42 +433,82 @@
 
 			<!-- Formulir untuk Filter -->
 			<!-- Formulir untuk Filter -->
-<form method="GET" action="<?= site_url('list_controller/rekap_absensi'); ?>" id="filterForm">
+			<form method="GET" action="<?= site_url('list_controller/rekap_absensi'); ?>" id="filterForm">
 
-<div class="space-y-4">
-	<!-- Pencarian Nama -->
-	<div>
-		<label for="nama" class="block mb-2 font-medium text-gray-700">Pencarian Nama:</label>
-		<input type="text" id="nama" name="nama" class="block w-full p-2 border rounded-md" placeholder="Masukkan nama siswa">
-	</div>
+				<div class="space-y-4">
+					<!-- Pencarian Nama -->
+					<div>
+						<label for="nama" class="block mb-2 font-medium text-gray-700">Pencarian Nama:</label>
+						<input type="text" id="nama" name="nama" class="block w-full p-2 border rounded-md" placeholder="Masukkan nama siswa">
+					</div>
 
-	<!-- Pilihan Tanggal -->
-	<div>
-		<label for="tanggal" class="block mb-2 font-medium text-gray-700">Pilih Tanggal:</label>
-		<input type="date" id="tanggal" name="tanggal" class="block w-full p-2 border rounded-md">
-	</div>
+					<!-- Pilihan Tanggal -->
+					<div>
+						<label for="tanggal" class="block mb-2 font-medium text-gray-700">Pilih Tanggal:</label>
+						<input type="date" id="tanggal" name="tanggal" class="block w-full p-2 border rounded-md">
+					</div>
 
-	<!-- Pilihan Kelas -->
-	<div>
-		<label for="kelas" class="block mb-2 font-medium text-gray-700">Pilih Kelas:</label>
-		<select name="kelas" id="kelas" class="block w-full p-2 border rounded-md">
-			<option value="">Semua Kelas</option>
-			<option value="XII RPL 1">XII RPL 1</option>
-			<option value="XII RPL 2">XII RPL 2</option>
-			<option value="XI RPL 1">XI RPL 1</option>
-			<option value="XI RPL 2">XI RPL 2</option>
-			<option value="X RPL 1">X RPL 1</option>
-			<option value="X RPL 2">X RPL 2</option>
-			<option value="XI DKV 1">XI DKV 1</option>
-			<option value="XI DKV 2">XI DKV 2</option>
-			<!-- Tambahkan kelas lainnya jika ada -->
-		</select>
-	</div>
+					<!-- Pilihan Kelas -->
+					<div>
+						<label for="kelas" class="block mb-2 font-medium text-gray-700">Pilih Kelas:</label>
+						<select name="kelas" id="kelas" class="block w-full p-2 border rounded-md">
+							<option value="">Semua Kelas</option>
+							<option value="XII RPL 1">XII RPL 1</option>
+							<option value="XII RPL 2">XII RPL 2</option>
+							<option value="XI RPL 1">XI RPL 1</option>
+							<option value="XI RPL 2">XI RPL 2</option>
+							<option value="X RPL 1">X RPL 1</option>
+							<option value="X RPL 2">X RPL 2</option>
+							<option value="XI DKV 1">XI DKV 1</option>
+							<option value="X DKV 1">X DKV 1</option>
+							<option value="X DKV 2">X DKV 2</option>
+							<option value="XI DKV 2">XI DKV 2</option>
+							<option value="XII DKV 1">XII DKV 1</option>
+							<option value="XII DKV 2">XII DKV 2</option>
+							<option value="X TKJ 1">X TKJ 1</option>
+							<option value="X TKJ 2">X TKJ 2</option>
+							<option value="XI TKJ 1">XI TKJ 1</option>
+							<option value="XI TKJ 2">XI TKJ 2</option>
+							<option value="XII TKJ 1">XII TKJ 1</option>
+							<option value="XII TKJ 2">XII TKJ 2</option>
+							<option value="X APT 1">X APT 1</option>
+							<option value="X APT 2">X APT 2</option>
+							<option value="XI APT 1">XI APT 1</option>
+							<option value="XI APT 2">XI APT 2</option>
+							<option value="XII APT 1">XII APT 1</option>
+							<option value="XII APT 2">XII APT 2</option>
+							<option value="X ATPH 1">X ATPH 1</option>
+							<option value="X ATPH 2">X ATPH 2</option>
+							<option value="XI ATPH 1">XI ATPH 1</option>
+							<option value="XI ATPH 2">XI ATPH 2</option>
+							<option value="XII ATPH 1">XII ATPH 1</option>
+							<option value="XII ATPH 2">XII ATPH 2</option>
+							<option value="X TKRO 1">X TKRO 1</option>
+							<option value="X TKRO 2">X TKRO 2</option>
+							<option value="X TKRO 3">X TKRO 3</option>
+							<option value="XI TKRO 1">XI TKRO 1</option>
+							<option value="XI TKRO 2">XI TKRO 2</option>
+							<option value="XI TKRO 3">XI TKRO 3</option>
+							<option value="XII TKRO 1">XII TKRO 1</option>
+							<option value="XII TKRO 2">XII TKRO 2</option>
+							<option value="XII TKRO 3">XII TKRO 3</option>
+							<option value="X TBSM 1">X TBSM 1</option>
+							<option value="X TBSM 2">X TBSM 2</option>
+							<option value="X TBSM 3">X TBSM 3</option>
+							<option value="XI TBSM 1">XI TBSM 1</option>
+							<option value="XI TBSM 2">XI TBSM 2</option>
+							<option value="XI TBSM 3">XI TBSM 3</option>
+							<option value="XII TBSM 1">XII TBSM 1</option>
+							<option value="XII TBSM 2">XII TBSM 2</option>
+							<option value="XII TBSM 3">XII TBSM 3</option>
 
-	<!-- Tombol Filter -->
-	<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md" id="filterButton">Filter</button>
-</div>
-</form>
+						</select>
+					</div>
+
+					<!-- Tombol Filter -->
+					<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md" id="filterButton">Filter</button>
+				</div>
+			</form>
 
 			<!-- Hasil Filter -->
 			<div id="dataSeluruhSiswaContent" class="w-3/4 p-6">
@@ -366,18 +529,18 @@
 						<?php if (!empty($rekap_absensi)) : ?>
 							<?php foreach ($rekap_absensi as $absensi) : ?>
 								<tr class="hover:bg-gray-50 transition-colors duration-200 border-t-2">
-									<td class="py-3 px-6 text-gray-800"><?= htmlspecialchars ($absensi->nama) ?></td>
+									<td class="py-3 px-6 text-gray-800"><?= htmlspecialchars($absensi->nama) ?></td>
 									<td class="py-3 px-6 text-gray-800"><?= htmlspecialchars($absensi->kelas); ?></td>
 									<td class="px-4 py-2">
-									<?php if (!empty($absensi->bukti)): ?>
-										<a href="<?= base_url('uploads/bukti/' . $absensi->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
-											Lihat Bukti
-										</a>
-										
-									<?php else: ?>
-										Tidak Ada Bukti
-									<?php endif; ?>
-								</td>
+										<?php if (!empty($absensi->bukti)): ?>
+											<a href="<?= base_url('uploads/bukti/' . $absensi->bukti); ?>" target="_blank" class="text-blue-600 hover:underline">
+												Lihat Bukti
+											</a>
+
+										<?php else: ?>
+											Tidak Ada Bukti
+										<?php endif; ?>
+									</td>
 									<td class="py-3 px-6  <?php
 															switch ($absensi->status) {
 																case 'masuk':
@@ -410,10 +573,10 @@
 							</tr>
 						<?php endif; ?>
 					</tbody>
-						<div class="mb-4">
-						<button id="downloadExcel" class="btn btn-primary">Unduh Excel</button>
-						<button id="downloadPDF" class="btn btn-danger">Unduh PDF</button>
-    </div>
+					<div class="mb-4">
+						<button id="downloadExcel" class="btn bg-green-400 text-white rounded-lg p-2 hover:bg-transparent hover:border-2 hover:border-green-400 hover:text-green-400 transition duration-300 ">Unduh Excel</button>
+						<button id="downloadPDF" class="btn bg-red-500 text-white rounded-lg p-2 hover:bg-transparent hover:border-2 hover:border-red-500 hover:text-red-500 transition duration-300">Unduh PDF</button>
+					</div>
 				</table>
 
 
@@ -676,128 +839,137 @@
 		}
 
 		function handleApproval(id, action) {
-    const url = `<?= site_url('dashboard_guru/'); ?>` + action + '/' + id;
-    const actionText = action === 'setuju' ? 'menyetujui' : 'menolak';
+			const url = `<?= site_url('dashboard_guru/'); ?>` + action + '/' + id;
+			const actionText = action === 'setuju' ? 'menyetujui' : 'menolak';
 
-    Swal.fire({
-        title: `Apakah Anda yakin ingin ${actionText} absensi ini?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Ya, Lanjutkan',
-        cancelButtonText: 'Batal',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            fetch(url)
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    } else {
-                        throw new Error('Gagal memproses permintaan.');
-                    }
-                })
-                .then(() => {
-                    Swal.fire({
-                        title: 'Berhasil!',
-                        text: `Absensi berhasil ${actionText}.`,
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        location.reload();
-                    });
-                })
-                .catch(error => {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: error.message,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                });
-        }
-    });
-}
+			Swal.fire({
+				title: `Apakah Anda yakin ingin ${actionText} absensi ini?`,
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'Ya, Lanjutkan',
+				cancelButtonText: 'Batal',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					fetch(url)
+						.then(response => {
+							if (response.ok) {
+								return response.text();
+							} else {
+								throw new Error('Gagal memproses permintaan.');
+							}
+						})
+						.then(() => {
+							Swal.fire({
+								title: 'Berhasil!',
+								text: `Absensi berhasil ${actionText}.`,
+								icon: 'success',
+								confirmButtonText: 'OK'
+							}).then(() => {
+								location.reload();
+							});
+						})
+						.catch(error => {
+							Swal.fire({
+								title: 'Error!',
+								text: error.message,
+								icon: 'error',
+								confirmButtonText: 'OK'
+							});
+						});
+				}
+			});
+		}
 
-function verifikasiNama() {
-    const selectedKelas = document.getElementById('verifikasiKelas').value;
+		function verifikasiNama() {
+			const selectedKelas = document.getElementById('verifikasiKelas').value;
 
-    $.ajax({
-        url: '<?= site_url("Ijin_controller/filter_by_kelas"); ?>',
-        method: 'POST',
-        data: { kelas: selectedKelas },
-        beforeSend: function() {
-            document.getElementById('dataController').innerHTML = `
+			$.ajax({
+				url: '<?= site_url("Ijin_controller/filter_by_kelas"); ?>',
+				method: 'POST',
+				data: {
+					kelas: selectedKelas
+				},
+				beforeSend: function() {
+					document.getElementById('dataController').innerHTML = `
                 <tr>
                     <td colspan="6" class="text-center">Memuat data...</td>
                 </tr>`;
-        },
-        success: function(response) {
-            const container = document.getElementById('dataController');
-            if (response.trim() === '') {
-                container.innerHTML = `
+				},
+				success: function(response) {
+					const container = document.getElementById('dataController');
+					if (response.trim() === '') {
+						container.innerHTML = `
                     <tr>
                         <td colspan="6" class="text-center">Tidak ada data tersedia untuk kelas yang dipilih.</td>
                     </tr>`;
-            } else {
-                container.innerHTML = response;
-            }
-        },
-        error: function(xhr, status, error) {
-            document.getElementById('dataController').innerHTML = `
+					} else {
+						container.innerHTML = response;
+					}
+				},
+				error: function(xhr, status, error) {
+					document.getElementById('dataController').innerHTML = `
                 <tr>
                     <td colspan="6" class="text-center">Terjadi kesalahan saat memuat data. Silakan coba lagi.</td>
                 </tr>`;
-            console.error('Error:', {
-                status: status,
-                error: error,
-                response: xhr.responseText
-            });
-        }
-    });
-}
+					console.error('Error:', {
+						status: status,
+						error: error,
+						response: xhr.responseText
+					});
+				}
+			});
+		}
 
-fetch('<?= base_url('rekap/get_data_absensi'); ?>')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.querySelector('#rekapTable tbody');
-                data.forEach(row => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
+		fetch('<?= base_url('rekap/get_data_absensi'); ?>')
+			.then(response => response.json())
+			.then(data => {
+				const tableBody = document.querySelector('#rekapTable tbody');
+				data.forEach(row => {
+					const tr = document.createElement('tr');
+					tr.innerHTML = `
                         <td>${row.nama}</td>
                         <td>${row.kelas}</td>
                         <td>${row.status}</td>
                         <td>${row.tanggal}</td>
                     `;
-                    tableBody.appendChild(tr);
-                });
-            });
+					tableBody.appendChild(tr);
+				});
+			});
 
-        // Unduh Excel
-        document.getElementById('downloadExcel').addEventListener('click', () => {
-            const table = document.getElementById('rekapTable');
-            const workbook = XLSX.utils.table_to_book(table, { sheet: "Rekap Absensi" });
-            XLSX.writeFile(workbook, 'rekap_absensi.xlsx');
-        });
+		// Unduh Excel
+		document.getElementById('downloadExcel').addEventListener('click', () => {
+			const table = document.getElementById('rekapTable');
+			const workbook = XLSX.utils.table_to_book(table, {
+				sheet: "Rekap Absensi"
+			});
+			XLSX.writeFile(workbook, 'rekap_absensi.xlsx');
+		});
 
-        // Unduh PDF
-        document.getElementById('downloadPDF').addEventListener('click', async () => {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF();
+		// Unduh PDF
+		document.getElementById('downloadPDF').addEventListener('click', async () => {
+			const {
+				jsPDF
+			} = window.jspdf;
+			const pdf = new jsPDF();
 
-            // Tambahkan judul
-            pdf.text("Rekap Absensi", 10, 10);
+			// Tambahkan judul
+			pdf.text("Rekap Absensi", 10, 10);
 
-            // Ambil data tabel
-            const table = document.getElementById('rekapTable');
-            const rows = Array.from(table.querySelectorAll('tr')).map(tr => 
-                Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent)
-            );
+			// Ambil data tabel
+			const table = document.getElementById('rekapTable');
+			const rows = Array.from(table.querySelectorAll('tr')).map(tr =>
+				Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent)
+			);
 
-            // Tambahkan tabel ke PDF
-            pdf.autoTable({ head: [rows[0]], body: rows.slice(1) });
+			// Tambahkan tabel ke PDF
+			pdf.autoTable({
+				head: [rows[0]],
+				body: rows.slice(1)
+			});
 
-            // Simpan file PDF
-            pdf.save('rekap_absensi.pdf');
-        });
+			// Simpan file PDF
+			pdf.save('rekap_absensi.pdf');
+		});
 	</script>
 
 
